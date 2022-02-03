@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prayerapp/authentication/signinemailpassword.dart';
 import 'package:prayerapp/authentication/signup.dart';
 import 'package:prayerapp/location%20_screen/viewpage.dart';
 
@@ -73,10 +74,10 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.all(8.0),
               child: Image.asset('assets/appleimage.png',),
             ),
-            label: Text('Login with Mobile',style: TextStyle(color: Colors.grey,fontSize: 15),),
+            label: Text('Login with Email',style: TextStyle(color: Colors.grey,fontSize: 15),),
             onPressed: () {
-      //        Navigator.push(context,
-      // MaterialPageRoute(builder: (context) => SignUp()));
+             Navigator.push(context,
+      MaterialPageRoute(builder: (context) => SignInEmailAndPassword()));
             },
             style: ElevatedButton.styleFrom(
               fixedSize: Size(368, 88),

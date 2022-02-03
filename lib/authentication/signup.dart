@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prayerapp/registration.dart';
+import 'package:prayerapp/authentication/registration.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({ Key? key }) : super(key: key);
