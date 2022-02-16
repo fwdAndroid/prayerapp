@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prayerapp/questions/seeanswers.dart';
+import 'package:prayerapp/questions/seequestionlist.dart';
 
 class ChoseQuestion extends StatefulWidget {
   const ChoseQuestion({ Key? key }) : super(key: key);
