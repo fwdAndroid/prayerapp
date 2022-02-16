@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
         
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
@@ -47,25 +48,25 @@ class _LoginState extends State<Login> {
         child:  Text('Assalamu’alaikum! Join the largest,\nglobal Muslim community to access a\nfull range of features and be the first to\n get latest updates.'
         ,style: TextStyle(fontSize: 15,color: Colors.grey),)),
       
-       Container(
-       height: 55,
-       margin: EdgeInsets.symmetric(horizontal: 40,vertical: 20),
-       child: ElevatedButton.icon(
-            icon: Image.asset('assets/google.png'),
-            label: Text('Login with Google',style: TextStyle(color: Colors.grey,fontSize: 15),),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (builder) => PrayerScreen()));
-            },
-            style: ElevatedButton.styleFrom(
-               fixedSize: Size(368, 88),
-              side: BorderSide(width: 1.0, color: Colors.grey,),
-              primary: Colors.white,
-              shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(10.0),
-              ),
-            ),
-         ),
-     ),
+    //    Container(
+    //    height: 55,
+    //    margin: EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+    //    child: ElevatedButton.icon(
+    //         icon: Image.asset('assets/google.png'),
+    //         label: Text('Login with Google',style: TextStyle(color: Colors.grey,fontSize: 15),),
+    //         onPressed: () {
+    //           Navigator.push(context, MaterialPageRoute(builder: (builder) => PrayerScreen()));
+    //         },
+    //         style: ElevatedButton.styleFrom(
+    //            fixedSize: Size(368, 88),
+    //           side: BorderSide(width: 1.0, color: Colors.grey,),
+    //           primary: Colors.white,
+    //           shape: new RoundedRectangleBorder(
+    //             borderRadius: new BorderRadius.circular(10.0),
+    //           ),
+    //         ),
+    //      ),
+    //  ),
       Container(
        height: 55,
        margin: EdgeInsets.symmetric(horizontal:40,vertical: 1),

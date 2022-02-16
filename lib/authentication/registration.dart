@@ -90,6 +90,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             height: 50,
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             child: TextField(
+              obscureText: true,
               controller: passwordController,
               decoration: InputDecoration(
                   labelText: 'Password',
@@ -109,9 +110,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
               horizontal: 20,
             ),
             child: TextField(
+              
               controller: phoneNumberController,
               decoration: InputDecoration(
                   labelText: 'Phone Number',
+                  
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(width: 1.5, color: Colors.grey),
                     borderRadius: BorderRadius.circular(12),

@@ -3,6 +3,7 @@ import 'package:prayerapp/bottombarpages/alaram.dart';
 import 'package:prayerapp/bottombarpages/home.dart';
 import 'package:prayerapp/bottombarpages/qibla.dart';
 import 'package:prayerapp/bottombarpages/quran.dart';
+import 'package:prayerapp/bottombarpages/surverypage.dart';
 import 'package:prayerapp/prayerpage1.dart';
 
 
@@ -19,7 +20,8 @@ class _MainScreenState extends State<MainScreen> {
     Home(),
     Alaram(),
     Quran(),
-     Qibla()
+     Qibla(),
+     SurveyPage(),
   ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = Home(); // Our first view in viewport
@@ -115,7 +117,7 @@ class _MainScreenState extends State<MainScreen> {
                             onPressed: () {
                               setState(() {
                                 currentScreen =
-                                    Prayer_screen1();// if user taps on this dashboard tab will be active
+                                    SurveyPage();// if user taps on this dashboard tab will be active
                                 currentTab = 3;
                               });
                             },
