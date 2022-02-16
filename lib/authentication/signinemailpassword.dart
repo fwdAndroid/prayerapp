@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:prayerapp/bottombar/home_view.dart';
 import 'package:prayerapp/database/database.dart';
+import 'package:prayerapp/widgets/utils.dart';
 
 class SignInEmailAndPassword extends StatefulWidget {
   const SignInEmailAndPassword({ Key? key }) : super(key: key);
@@ -10,11 +13,25 @@ class SignInEmailAndPassword extends StatefulWidget {
 }
 
 class _SignInEmailAndPasswordState extends State<SignInEmailAndPassword> {
+ 
+
+
   TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+bool _isLoading = false;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.clear();
+    passwordController.clear();
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
@@ -92,13 +109,12 @@ class _SignInEmailAndPasswordState extends State<SignInEmailAndPassword> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
               ),
-              onPressed: () => Database()
-                  .signInUser(
-                      email: emailController.text,
-                      password: passwordController.text,)
-                  .then((value) => Navigator.push(context,
-                      MaterialPageRoute(builder: (builder) => MainScreen()))),
-              child: Text(
+              onPressed: loginUser,
+
+              
+              child: _isLoading ? Center(
+                child: CircularProgressIndicator(),
+              ): Text(
                 'Login',
                 style: TextStyle(fontSize: 20),
               ),
@@ -107,5 +123,28 @@ class _SignInEmailAndPasswordState extends State<SignInEmailAndPassword> {
         ],
       ),
     );
+  }
+
+  void loginUser() async{
+    setState(() {
+      _isLoading = true;
+    });
+    String rse = await Database().signInUser(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+    print(rse);
+    setState(() {
+      _isLoading = false;
+    });
+    if(rse == 'sucess'){
+       MaterialPageRoute(
+          builder: (builder) => MainScreen());
+    }
+    else{
+      showSnakBar(rse, context);
+    }
+     
   }
 }

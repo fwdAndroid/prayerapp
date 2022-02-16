@@ -13,11 +13,9 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white,
+      appBar: AppBar(backgroundColor: Colors.green,
       elevation: 0,
-      automaticallyImplyLeading: false,
       
-       leading: Icon(Icons.arrow_back,color: Colors.black,),
       ),
       body: ListView(
         children: [
