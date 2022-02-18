@@ -139,8 +139,7 @@ bool _isLoading = false;
       _isLoading = false;
     });
     if(rse == 'sucess'){
-       MaterialPageRoute(
-          builder: (builder) => MainScreen());
+Navigator.push(context, MaterialPageRoute(builder: (_)=>MainScreen()));
     }
     else{
       showSnakBar(rse, context);

@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   anim_search_bar: ^2.0.2
+  assets_audio_player: ^3.0.4+1
   carousel_slider: ^4.0.0
   cloud_firestore: ^3.1.7
   cupertino_icons: ^1.0.2
@@ -40,6 +41,7 @@ dependencies:
   geolocator: ^7.7.1
   google_maps_flutter: ^2.1.1
   google_sign_in: ^5.2.3
+  provider: ^6.0.2
   search_bar_animated: ^1.0.2
 
 dev_dependencies:

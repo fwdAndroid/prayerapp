@@ -1,10 +1,14 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:prayerapp/Providers/idprovider.dart';
+import 'package:prayerapp/constants/constant.dart';
 import 'package:prayerapp/questions/seequestionssol.dart';
+import 'package:provider/provider.dart';
 import 'package:search_bar_animated/search_bar_animated.dart';
 
 class SeeAnswers extends StatefulWidget {
-  const SeeAnswers({ Key? key }) : super(key: key);
+   SeeAnswers({ Key? key }) : super(key: key);
 
   @override
   _SeeAnswersState createState() => _SeeAnswersState();
@@ -66,29 +70,42 @@ class _SeeAnswersState extends State<SeeAnswers> {
       
         // ],
       ), 
-      body: Column(
+      body: Container(
+        height: MediaQuery.of(context).size.height/2,
+      width: MediaQuery.of(context).size.width,
+        child: StreamBuilder(
+              stream: firebaseFirestore.collection("topics").
+              doc(Provider.of<IdProvider>(context,listen: true).topicId).
+              collection("questions").snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context,index){
+                        var ds=snapshot.data!.docs[index];
+                        int i=1+index;
+                        return Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: ListTile(
+                              onTap: (){
 
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height/2,
-            child: ListView.builder(
-              itemCount: 3,
-              itemBuilder: (context,index){
-              return Card(
-                 shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(15.0),
-  ),
-                child: ListTile(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (xt) => SeeQuestionsSolutions()));
-                  },
-                  title: Text('Q1: How I solve my marraige problem'),
-                )
-              
-              
-               );}),
-          ) ],
-      ),
+                                Navigator.push(context, MaterialPageRoute(builder: (xt) => SeeQuestionsSolutions(
+                                  id: ds.id,
+                                )));
+                              },
+                              title: Text('Q$i:  ${ds['Question']}'),
+                            )
+
+
+                        );});
+                } else if (snapshot.hasError) {
+                  return Icon(Icons.error_outline);
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              })),
     );
   }
 }
