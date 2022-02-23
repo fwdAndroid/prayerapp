@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:prayerapp/notifications/notifications.dart';
+import 'package:prayerapp/settings/setting.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -12,9 +14,24 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        centerTitle: true,
+        title: Text('Prayer App',style: TextStyle(color: Colors.green),),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: [
+                        IconButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (builder) => Settings()));
+                        }, icon: Icon(Icons.settings,color: Colors.green,)),
+
+        ],
+      ),
+      extendBody: true,
       backgroundColor: Colors.white,
       body: ListView(
         children: [
+          
           Stack(
             children: [
               Image.asset('assets/mosqueimage.png'),
@@ -27,12 +44,15 @@ class _HomeState extends State<Home> {
                       style: TextStyle(color: Colors.black, fontSize: 18),
                     ),
                     trailing: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (builder) => Notifications()));
+                        },
                         icon: Image.asset(
                           'assets/bellimage.png',
                           height: 25,
                         ))),
               ),
+              
             ],
           ),
           Container(
@@ -73,7 +93,7 @@ class _HomeState extends State<Home> {
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 3),
-            height: 150,
+            height: 180,
             child: Card(
               child: Column(
                 //  mainAxisAlignment: MainAxisAlignment.start,
