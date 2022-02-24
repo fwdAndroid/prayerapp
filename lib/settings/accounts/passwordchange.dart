@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class PasswordChange extends StatefulWidget {
@@ -8,9 +9,10 @@ class PasswordChange extends StatefulWidget {
 }
 
 class _PasswordChangeState extends State<PasswordChange> {
+  TextEditingController oldpassController = TextEditingController();
     TextEditingController newpassController = TextEditingController();
   TextEditingController conpassController = TextEditingController();
-
+bool loading=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,10 +41,10 @@ class _PasswordChangeState extends State<PasswordChange> {
                 // border: Border.all(color: Colors.grey,width: 0.5)
               ),
               child: TextFormField(
-                controller: newpassController,
+                controller: oldpassController,
                 //  textAlign: TextAlign.start,
                 decoration: InputDecoration(
-                  hintText: 'New Password',
+                  hintText: 'Old Password',
                   contentPadding: new EdgeInsets.fromLTRB(15, 15, 15, 15),
                   border: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(10.0),
@@ -80,7 +82,7 @@ class _PasswordChangeState extends State<PasswordChange> {
                 controller: newpassController,
                 //  textAlign: TextAlign.start,
                 decoration: InputDecoration(
-                  hintText: 'Confrim Password',
+                  hintText: 'New Password',
                   contentPadding: new EdgeInsets.fromLTRB(15, 15, 15, 15),
                   border: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(10.0),
@@ -115,10 +117,10 @@ class _PasswordChangeState extends State<PasswordChange> {
                 // border: Border.all(color: Colors.grey,width: 0.5)
               ),
               child: TextFormField(
-                controller: newpassController,
+                controller: conpassController,
                 //  textAlign: TextAlign.start,
                 decoration: InputDecoration(
-                  hintText: 'Edit Mobile',
+                  hintText: 'Confirm Password',
                   contentPadding: new EdgeInsets.fromLTRB(15, 15, 15, 15),
                   border: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(10.0),
@@ -138,9 +140,60 @@ class _PasswordChangeState extends State<PasswordChange> {
                 ),
               )),
 
-              ElevatedButton(onPressed: (){}, child: Text('Saved'))
+              MaterialButton(
+                minWidth: 150,
+                  height: 45,
+                  color: Colors.green,
+                  onPressed: (){
+                  if(oldpassController.text.isEmpty){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("old Password ia required")
+                        ));
+                  }
+                 else if(newpassController.text.isEmpty){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("New Password ia required")
+                        ));
+                  }
+                  else if(conpassController.text.isEmpty){
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Confirm Password ia required")
+                        ));
+                  }
+                  else if(newpassController.text.isNotEmpty==conpassController.text.isNotEmpty&&oldpassController.text.isNotEmpty){
+          setState(() {
+            loading=true;
+          });
+try{
+  _changePassword(oldpassController.text.trim(), newpassController.text.trim());
+}catch(e){
+  print(e);
+}
+
+                }
+              }, child:loading==false? Text('Saved',style: TextStyle(color: Colors.white),):CircularProgressIndicator(color: Colors.white,))
         ],
       ),
     );
   }
+    void _changePassword(String currentPassword, String newPassword) async {
+      final user = await FirebaseAuth.instance.currentUser;
+      final cred = EmailAuthProvider.credential(
+          email: user!.email!, password: currentPassword);
+
+      user.reauthenticateWithCredential(cred).then((value) {
+        user.updatePassword(newPassword).then((_)
+        {
+          Navigator.pop(context);
+          loading=false;
+          ScaffoldMessenger.of(context).showSnackBar(
+             SnackBar(content: Text("Password Updated")
+          ));
+          //Success, do something
+        }).catchError((error) {
+          //Error, show something
+        });
+      }).catchError((err) {
+
+      });}
 }
