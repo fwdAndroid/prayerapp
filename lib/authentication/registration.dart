@@ -19,6 +19,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController marriageController = TextEditingController();
   TextEditingController dobController = TextEditingController();
 
+
+  String dropdownValue = 'Male';
+  String dropdownValue2 = "Married";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,40 +129,89 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   )),
             ),
           ),
-          Container(
-            height: 50,
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            child: TextField(
-              controller: genderController,
-              decoration: InputDecoration(
-                  labelText: 'Gender',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1.5, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    // borderSide: BorderSide(width: 3, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(15),
-                  )),
-            ),
-          ),
-          Container(
-            height: 50,
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            child: TextField(
-              controller: marriageController,
-              decoration: InputDecoration(
-                  labelText: 'Material Status',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1.5, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    // borderSide: BorderSide(width: 3, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(15),
-                  )),
-            ),
-          ),
+
+          /// Drop Down Gender
+          DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+        });
+      },
+      items: <String>['Male', 'Female']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    ),
+          // Container(
+          //   height: 50,
+          //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          //   child: TextField(
+          //     controller: genderController,
+          //     decoration: InputDecoration(
+          //         labelText: 'Gender',
+          //         enabledBorder: OutlineInputBorder(
+          //           borderSide: BorderSide(width: 1.5, color: Colors.grey),
+          //           borderRadius: BorderRadius.circular(12),
+          //         ),
+          //         focusedBorder: OutlineInputBorder(
+          //           // borderSide: BorderSide(width: 3, color: Colors.grey),
+          //           borderRadius: BorderRadius.circular(15),
+          //         )),
+          //   ),
+          // ),
+          // Drop Down Material Status
+                DropdownButton<String>(
+      value: dropdownValue2,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue2= newValue!;
+        });
+      },
+      items: <String>['Married', 'Single']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    ),
+
+
+          // Container(
+          //   height: 50,
+          //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          //   child: TextField(
+          //     controller: marriageController,
+          //     decoration: InputDecoration(
+          //         labelText: 'Material Status',
+          //         enabledBorder: OutlineInputBorder(
+          //           borderSide: BorderSide(width: 1.5, color: Colors.grey),
+          //           borderRadius: BorderRadius.circular(12),
+          //         ),
+          //         focusedBorder: OutlineInputBorder(
+          //           // borderSide: BorderSide(width: 3, color: Colors.grey),
+          //           borderRadius: BorderRadius.circular(15),
+          //         )),
+          //   ),
+          // ),
           Container(
             height: 50,
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
