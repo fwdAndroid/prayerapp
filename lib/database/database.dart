@@ -73,39 +73,35 @@ class Database {
 
   ///GoogleSignIn
   Future<String> googleSignIn(
-      { String? email,
-       String? password,
-       String? fullName}) async {
+      ) async {
     String res = "Some Errros";
     try {
-      final GoogleSignIn _googleSignIn = GoogleSignIn(
-        scopes: ['email'],
-      );
-      final FirebaseAuth _auth = FirebaseAuth.instance;
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser!.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      if (email!.isNotEmpty || password!.isNotEmpty || fullName!.isNotEmpty) {
-        UserCredential cred =  await _auth.signInWithCredential(credential);
+        var user =  await _auth.currentUser;
+        String id=user!.uid;
+        String name=user.displayName!;
+        String email=user.email!;
           //Add User to the database
-          await firebaseFirestore.collection('users').doc(cred.user!.uid).set({
-            'username':fullName,
-             'uid':cred.user!.uid,
+          await firebaseFirestore.collection('users').doc(id).set({
+            'username':name,
+             'uid':id,
              'email':email,
-             'password': password,
-
           });
           res = 'sucess';
            debugPrint(res);
-      }
     } catch (e) {
        res = e.toString();
     }
     return res;
   }
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
 
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 }

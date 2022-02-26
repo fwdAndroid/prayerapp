@@ -15,8 +15,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController genderController = TextEditingController();
-  TextEditingController marriageController = TextEditingController();
   TextEditingController dobController = TextEditingController();
 
 
@@ -131,28 +129,36 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
 
           /// Drop Down Gender
-          DropdownButton<String>(
+          Container(
+            height: 50,
+            margin: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: DropdownButton<String>(
       value: dropdownValue,
+
+borderRadius: BorderRadius.circular(20),
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
+      // style: const TextStyle(color: Colors.deepPurple),
       underline: Container(
         height: 2,
-        color: Colors.deepPurpleAccent,
+        color: Theme.of(context).colorScheme.primary,
       ),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValue = newValue!;
+            dropdownValue = newValue!;
         });
       },
       items: <String>['Male', 'Female']
-          .map<DropdownMenuItem<String>>((String value) {
+            .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+            value: value,
+            child: Text(value),
         );
       }).toList(),
     ),
+          ),
           // Container(
           //   height: 50,
           //   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -171,15 +177,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
           //   ),
           // ),
           // Drop Down Material Status
-                DropdownButton<String>(
+                Container(
+                  height: 50,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  child: DropdownButton<String>(
       value: dropdownValue2,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
+      // style: const TextStyle(color: Colors.deepPurple),
       underline: Container(
         height: 2,
-        color: Colors.deepPurpleAccent,
+        color: Theme.of(context).colorScheme.primary,
       ),
+
       onChanged: (String? newValue) {
         setState(() {
           dropdownValue2= newValue!;
@@ -193,6 +205,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         );
       }).toList(),
     ),
+                ),
 
 
           // Container(
@@ -245,8 +258,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       password: passwordController.text,
                       fullName: fullNameController.text,
                       dob: dobController.text,
-                      gender: genderController.text,
-                      materialStatus: marriageController.text,
+                      gender: dropdownValue,
+                      materialStatus: dropdownValue2,
                       phoneNumber: phoneNumberController.text)
                   .then((value) => Navigator.push(context,
                       MaterialPageRoute(builder: (builder) => Login()))),

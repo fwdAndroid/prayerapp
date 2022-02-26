@@ -61,8 +61,12 @@ class _LoginState extends State<Login> {
             label: Text('Login with Google',style: TextStyle(color: Colors.grey,fontSize: 15),),
             onPressed: () async{
               
-              await Database().googleSignIn().then((value) => Navigator.push(context, MaterialPageRoute(builder: (_)=>MainScreen())
-              ));
+              await Database().signInWithGoogle().whenComplete((){
+                Database().googleSignIn().then((value) => Navigator.push(context, MaterialPageRoute(builder: (_)=>MainScreen())
+                ));
+              });
+
+
             },
             style: ElevatedButton.styleFrom(
                fixedSize: Size(368, 88),
