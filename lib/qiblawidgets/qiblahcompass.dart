@@ -91,12 +91,12 @@ class _QiblahCompassState extends State<QiblahCompass> {
 
 class QiblahCompassWidget extends StatelessWidget {
   final _compassSvg = Image.asset('assets/compass.png');
-  final _needleSvg = Image.asset(
-    'assets/needle.svg',
-    fit: BoxFit.contain,
-    height: 300,
-    alignment: Alignment.center,
-  );
+  // final _needleSvg = Image.asset(
+  //   'assets/compass.png',
+  //   fit: BoxFit.contain,
+  //   height: 300,
+  //   alignment: Alignment.center,
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -115,11 +115,11 @@ class QiblahCompassWidget extends StatelessWidget {
               angle: (qiblahDirection.direction * (pi / 180) * -1),
               child: _compassSvg,
             ),
-            Transform.rotate(
-              angle: (qiblahDirection.qiblah * (pi / 180) * -1),
-              alignment: Alignment.center,
-              child: _needleSvg,
-            ),
+            // Transform.rotate(
+            //   angle: (qiblahDirection.qiblah * (pi / 180) * -1),
+            //   alignment: Alignment.center,
+            //   child: _needleSvg,
+            // ),
             Positioned(
               bottom: 8,
               child: Text("${qiblahDirection.offset.toStringAsFixed(3)}°"),

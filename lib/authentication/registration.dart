@@ -17,7 +17,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController dobController = TextEditingController();
 
-
   String dropdownValue = 'Male';
   String dropdownValue2 = "Married";
 
@@ -112,11 +111,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
               horizontal: 20,
             ),
             child: TextField(
-              
               controller: phoneNumberController,
               decoration: InputDecoration(
                   labelText: 'Phone Number',
-                  
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(width: 1.5, color: Colors.grey),
                     borderRadius: BorderRadius.circular(12),
@@ -135,29 +132,30 @@ class _RegistrationPageState extends State<RegistrationPage> {
               horizontal: 20,
             ),
             child: DropdownButton<String>(
-      value: dropdownValue,
+              isExpanded: true,
+              value: dropdownValue,
 
-borderRadius: BorderRadius.circular(20),
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      // style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Theme.of(context).colorScheme.primary,
-      ),
-      onChanged: (String? newValue) {
-        setState(() {
-            dropdownValue = newValue!;
-        });
-      },
-      items: <String>['Male', 'Female']
-            .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-        );
-      }).toList(),
-    ),
+              borderRadius: BorderRadius.circular(20),
+              icon: const Icon(Icons.arrow_downward),
+              elevation: 16,
+              // style: const TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+              items: <String>['Male', 'Female']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
           ),
           // Container(
           //   height: 50,
@@ -177,36 +175,36 @@ borderRadius: BorderRadius.circular(20),
           //   ),
           // ),
           // Drop Down Material Status
-                Container(
-                  height: 50,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: DropdownButton<String>(
-      value: dropdownValue2,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      // style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Theme.of(context).colorScheme.primary,
-      ),
+          Container(
+            height: 50,
+            margin: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: DropdownButton<String>(
+              isExpanded: true,
+              value: dropdownValue2,
+              icon: const Icon(Icons.arrow_downward),
+              elevation: 16,
+              // style: const TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Theme.of(context).colorScheme.primary,
+              ),
 
-      onChanged: (String? newValue) {
-        setState(() {
-          dropdownValue2= newValue!;
-        });
-      },
-      items: <String>['Married', 'Single']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    ),
-                ),
-
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue2 = newValue!;
+                });
+              },
+              items: <String>['Married', 'Single']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
 
           // Container(
           //   height: 50,
