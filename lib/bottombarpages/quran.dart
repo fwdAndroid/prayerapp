@@ -27,7 +27,7 @@ class _QuranState extends State<Quran> {
     return Scaffold(
       body: 
        WebView(
-        initialUrl: 'https://assistmyhome.com/noblequran',
+        initialUrl: 'https://assistmyhome.com/noble-quran/',
         onWebViewCreated: (WebViewController webViewController) {
           _controller.complete(webViewController);
         },
