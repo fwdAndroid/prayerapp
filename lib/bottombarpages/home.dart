@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:prayerapp/notifications/notifications.dart';
+import 'package:prayerapp/products/our_product_screen.dart';
 import 'package:prayerapp/settings/setting.dart';
 
 class Home extends StatefulWidget {
@@ -15,12 +16,16 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true,
-        centerTitle: true,
+        automaticallyImplyLeading: false,
+        
         title: Text('Prayer App',style: TextStyle(color: Colors.green),),
         elevation: 0,
         backgroundColor: Colors.transparent,
         actions: [
+             TextButton(onPressed: (){
+               Navigator.push(context, MaterialPageRoute(builder: (builder) => OurProducts()));
+             }, child: Text('Our Products')),
+
                         IconButton(onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (builder) => Settings()));
                         }, icon: Icon(Icons.settings,color: Colors.green,)),
