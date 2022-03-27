@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,6 +8,7 @@ import 'package:prayerapp/authentication/signup.dart';
 import 'package:prayerapp/bottombar/home_view.dart';
 import 'package:prayerapp/database/database.dart';
 import 'package:prayerapp/location%20_screen/viewpage.dart';
+import 'package:prayerapp/widgets/customdialog.dart';
 
 enum SingingCharacter { English, Arabic }
 
@@ -20,6 +22,20 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   GoogleSignIn googleSignIn = GoogleSignIn();
   SingingCharacter? _character = SingingCharacter.English;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>MainScreen()), (route) => false) ;
+      }
+    });
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,12 +77,14 @@ class _LoginState extends State<Login> {
             label: Text('Login with Google',style: TextStyle(color: Colors.grey,fontSize: 15),),
             onPressed: () async{
               
-              await Database().signInWithGoogle().whenComplete((){
-                Database().googleSignIn().then((value) => Navigator.push(context, MaterialPageRoute(builder: (_)=>MainScreen())
-                ));
-              });
-
-
+              try{
+                await Database().signInWithGoogle().then((v){
+                  Database().socialLoginUser(context);
+                });
+              }
+                  catch(e){
+                Customdialog.showBox(context, e.toString());
+                  }
             },
             style: ElevatedButton.styleFrom(
                fixedSize: Size(368, 88),

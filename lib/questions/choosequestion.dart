@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prayerapp/Providers/idprovider.dart';
@@ -51,7 +52,38 @@ class _ChoseQuestionState extends State<ChoseQuestion> {
                               child: CircleAvatar(
                                 radius: 45,
                                 backgroundColor: Colors.grey.shade300,
-                                backgroundImage: NetworkImage(ds['imageLink']),
+                                // backgroundImage: NetworkImage(ds['imageLink']),
+                              child: CachedNetworkImage(
+                                imageUrl: ds['imageLink'],
+                                imageBuilder: (context,
+                                    imageProvider) =>
+                                    Container(
+                                      decoration:
+                                      BoxDecoration(
+                                        shape:
+                                        BoxShape.circle,
+                                        image:
+                                        DecorationImage(
+                                          image:
+                                          imageProvider,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                placeholder: (context,
+                                    url) =>
+                                    Center(
+                                        child: CircleAvatar(
+                                          radius: 43,
+                                          backgroundColor: Colors.white,
+                                          backgroundImage: AssetImage("assets/infinity.gif"),
+                                        )),
+                                errorWidget: (context,
+                                    url, error) =>
+                                    Center(
+                                        child: Icon(
+                                            Icons.error)),
+                              ),
                               ),
                             ),
                             Text(ds['title'],style: TextStyle(color: Colors.black),)

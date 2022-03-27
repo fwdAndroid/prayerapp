@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "141468381341-7rd0avgbc4jgm0jmtpo758854c50n90u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.prayerapp",
+            "certificate_hash": "50a05bfb5f1c0671c16ff5e4c896417539ea86eb"
+          }
+        },
+        {
           "client_id": "141468381341-il837d2ejlq0ojngp9c5gjh3b3kue4vk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
